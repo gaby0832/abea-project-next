@@ -2,12 +2,12 @@ import sql from './config/sql.js'
 
 const createTable = async () => {
   await sql`
-    CREATE TABLE IF NOT EXISTS usuarios (
+    CREATE TABLE IF NOT EXISTS users (
       id SERIAL PRIMARY KEY,
-      nome TEXT NOT NULL,
+      name TEXT NOT NULL,
       email TEXT UNIQUE NOT NULL,
-      senha TEXT NOT NULL,
-      criado_em TIMESTAMP DEFAULT NOW()
+      password TEXT NOT NULL,
+      created_in TIMESTAMP DEFAULT NOW()
     )
   `
 
