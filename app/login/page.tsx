@@ -23,7 +23,6 @@ const UserIcon: React.FC = () => (
 // Componente principal do aplicativo Next.js
 const Home: React.FC = () => {
   // Estados para o formulário de registro
-  const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [registrationMessage, setRegistrationMessage] = useState<string>('');
@@ -43,20 +42,23 @@ const Home: React.FC = () => {
     setRegistrationMessage('');
     setIsRegistering(true);
 
+    // Simula uma chamada de API com um atraso
     try {
-      if(!name ||!email || !password) return false
 
-        const response = await fetch(`/api/user/register`, {
-          method: 'POST',
-          headers: { 
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ name, email, password }),
-        });
+      // Aqui você faria uma chamada fetch real para o seu backend
+      // Exemplo: const response = await fetch('/api/register', { ... });
+      // Para demonstração, simulamos uma resposta:
+      if(!email || !password) return false
+      
+      const response = await fetch('/api/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({email, password}),
+      });
 
       const { backend } = await response.json();
-      const { data } = await backend;
-
+      const { data } = await backend;     
+      console.log(data); // se o backend retornar um token
 
       if (data.success) {
         setRegistrationMessage(data.message);
@@ -83,21 +85,21 @@ const Home: React.FC = () => {
     setIsLoadingData(true);
 
     try {
-      // Simula uma chamada de API para buscar dados
-      // Exemplo: const response = await fetch('/api/data');
-      // Para demonstração, simulamos uma resposta:
-        const response = await fetch('/api/user', {
+     
+
+     const response = await fetch('/api/user', {
           method: 'GET',
           headers: { 
             'Content-Type': 'application/json',
           },
-          
         });
-        
-       const { backend } = await response.json();
-       const { data } = await backend;
+
+      const { backend } = await response.json();
+      const { data } = await backend;
+
       if (data.success) {
         setApiData(data.users);
+
       } else {
         setDataErrorMessage(`Erro: ${data.message}`);
       }
@@ -121,24 +123,10 @@ const Home: React.FC = () => {
         <section className="mb-10 p-6 bg-indigo-50 rounded-lg shadow-inner border border-indigo-100">
           <h2 className="text-2xl font-bold text-indigo-600 mb-6 flex items-center justify-center">
             <UserIcon />
-            <span className="ml-3">Registro de Usuário</span>
+            <span className="ml-3">Login de usuário</span>
           </h2>
           <form onSubmit={handleRegister} className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Nome
-              </label>
-              <input
-                type="text"
-                id="name"
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all duration-200 focus:ring-2"
-                placeholder="Seu nome aqui"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-
+  
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 E-mail
@@ -175,7 +163,7 @@ const Home: React.FC = () => {
               className="w-full bg-indigo-600 text-white py-3 px-4 rounded-md font-semibold text-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
               disabled={isRegistering}
             >
-              {isRegistering ? 'Registrando...' : 'Registrar'}
+              {isRegistering ? 'Logando...' : 'Login'}
             </button>
           </form>
           
