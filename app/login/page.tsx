@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react';
 
-// Um componente simples de ícone (simula lucide-react ou um SVG inline)
 const UserIcon: React.FC = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -20,34 +19,23 @@ const UserIcon: React.FC = () => (
   </svg>
 );
 
-// Componente principal do aplicativo Next.js
-const Home: React.FC = () => {
-  // Estados para o formulário de registro
+  const Home: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [registrationMessage, setRegistrationMessage] = useState<string>('');
   const [isRegistering, setIsRegistering] = useState<boolean>(false);
 
-  // Estados para a requisição de dados da API
   const [apiData, setApiData] = useState(['Dados']);
   const [isLoadingData, setIsLoadingData] = useState<boolean>(false);
   const [dataErrorMessage, setDataErrorMessage] = useState<string>('');
 
-  /**
-   * Simula uma requisição de registro de usuário para uma API.
-   * Em um aplicativo real, isso enviaria dados para o seu backend.
-   */
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setRegistrationMessage('');
     setIsRegistering(true);
 
-    // Simula uma chamada de API com um atraso
     try {
 
-      // Aqui você faria uma chamada fetch real para o seu backend
-      // Exemplo: const response = await fetch('/api/register', { ... });
-      // Para demonstração, simulamos uma resposta:
       if(!email || !password) return false
       
       const response = await fetch('/api/user/login', {
@@ -58,7 +46,6 @@ const Home: React.FC = () => {
 
       const { backend } = await response.json();
       const { data } = await backend;     
-      console.log(data); // se o backend retornar um token
 
       if (data.success) {
         setRegistrationMessage(data.message);
@@ -75,10 +62,6 @@ const Home: React.FC = () => {
     }
   };
 
-  /**
-   * Simula a requisição de dados de uma API.
-   * Em um aplicativo real, isso buscaria dados do seu backend ou de uma API externa.
-   */
   const fetchSomeData = async () => {
     setApiData([]);
     setDataErrorMessage('');
@@ -113,13 +96,12 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-100 font-sans text-gray-800 flex items-center justify-center p-4">
-      {/* Container principal do card */}
+ 
       <div className="bg-white rounded-xl shadow-2xl p-8 max-w-lg w-full transform transition-all duration-300 border border-indigo-200">
         <h1 className="text-4xl font-extrabold text-center text-indigo-700 mb-8 tracking-tight">
           Meu App Next.js
         </h1>
 
-        {/* Seção de Registro de Usuário */}
         <section className="mb-10 p-6 bg-indigo-50 rounded-lg shadow-inner border border-indigo-100">
           <h2 className="text-2xl font-bold text-indigo-600 mb-6 flex items-center justify-center">
             <UserIcon />
@@ -174,7 +156,6 @@ const Home: React.FC = () => {
           )}
         </section>
 
-        {/* Seção de Consumo de API */}
         <section className="p-6 bg-purple-50 rounded-lg shadow-inner border border-purple-100">
           <h2 className="text-2xl font-bold text-purple-600 mb-6 text-center">
             Consumir Dados da API
