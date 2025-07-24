@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@fastify/cors": "^11.0.1",
+    "@fastify/jwt": "^9.1.0",
     "@fastify/rate-limit": "^10.3.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",

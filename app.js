@@ -7,7 +7,7 @@ import logRequest from './plugins/logRequest.js'
 import rateLimit from '@fastify/rate-limit'
 import authPlugin from './plugins/auth.js'
 
-const app = Fastify()
+const app = Fastify({ logger: true })
 
 app.register(cors, { origin: '*' });
 
@@ -25,8 +25,8 @@ app.register(rateLimit, {
   }
 })
 
-app.register(apiKeyAuth);
 app.register(authPlugin);
+app.register(apiKeyAuth);
 app.register(userRoutes, { prefix: '/users' });
 
 
